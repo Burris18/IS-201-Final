@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Simple Basketball Shot Simulator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url("images/background.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        h1 {
+            color: #003366;
+        }
+        
+        button {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            margin: 10px;
+            cursor: pointer;
+        }
+        
+        #result {
+            font-size: 1.5em;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        
+        #stats {
+            margin-top: 20px;
+            font-size: 1.1em;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>🏀 Basketball Shot Simulator</h1>
+        <p>Click the button to take a shot!</p>
+
+        <button onclick="takeShot()">Shoot</button>
+        <button onclick="resetGame()">Reset</button>
+
+        <div id="result"></div>
+
+        <div id="stats">
+            Shots Taken: <span id="shots">0</span><br> Shots Made: <span id="makes">0</span><br> Shooting Percentage: <span id="percent">0%</span>
+        </div>
+    </div>
+
+    <script>
+        let totalShots = 0;
+        let madeShots = 0;
+
+        function takeShot() {
+            const made = Math.random() < 0.5;
+            totalShots++;
+            if (made) {
+                madeShots++;
+                document.getElementById("result").textContent = "✅ You made it!";
+                document.getElementById("result").style.color = "green";
+            } else {
+                document.getElementById("result").textContent = "❌ Missed!";
+                document.getElementById("result").style.color = "red";
+            }
+
+            updateStats();
+        }
+
+        function resetGame() {
+            totalShots = 0;
+            madeShots = 0;
+            document.getElementById("result").textContent = "";
+            updateStats();
+        }
+
+        function updateStats() {
+            const percent = totalShots ? ((madeShots / totalShots) * 100).toFixed(1) : 0;
+            document.getElementById("shots").textContent = totalShots;
+            document.getElementById("makes").textContent = madeShots;
+            document.getElementById("percent").textContent = `${percent}%`;
+        }
+    </script>
+
+</body>
+
+</html>
